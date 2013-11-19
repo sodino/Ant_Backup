@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Backup" basedir=".">
+	<property name="compress.folder.mac" value="/Users/sodino/Mission/GitHub/Opportunity"/>
+	<property name="compress.destfile.mac" location="/Users/sodino/Lab/backup.oppo.zip"/>
+
+</project>

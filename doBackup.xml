@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Backup" default="Help" basedir=".">
+    <!-- 设定要复制的目标-->
+    <import file="doBackup_constants.xml"/>
+    <property environment="env"/>
+    <property name="os" value="${env.OS}"/>
+
+    <target name="compress">
+        <echo message="${os}"></echo>
+    	<echo message="compress.folder.mac:${compress.folder.mac}"></echo>
+    	<zip destfile="${compress.destfile.mac}" basedir="${compress.folder.mac}">
+    	</zip>
+    </target>
+
+    <target name="Help">
+        <echo message="实现的功能："></echo>
+        <echo message="将指定文件夹压缩并push到手机生成zip文件"></echo>
+        <echo message="将指定手机内的zip文件解压到指定的路径中"></echo>
+    </target>
+    
+</project>
