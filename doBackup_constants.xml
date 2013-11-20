@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Backup" basedir=".">
-	<property name="compress.folder.mac" value="/Users/sodino/Mission/GitHub/Opportunity"/>
-	<property name="compress.destfile.mac" location="/Users/sodino/Lab/backup.oppo.zip"/>
+<project name="Constants" basedir=".">
 
+
+	<property name="compress.folder.mac" value="/Users/sodino/Mission/GitHub/Opportunity"/>
+	<property name="compress.folder.windows" value="/Users/sodino/Mission/GitHub/Opportunity"/>
+	<property name="compress.destfile.mac" location="/Users/sodino/Lab/backup.oppo.zip"/>
+	<property name="compress.destfile.windows" location="/Users/sodino/Lab/backup.oppo.zip"/>
+
+	<!-- 这里填写系统环境变量中os的值 -->
+	<property name="os.mac" value="Mac"/>
+	<property name="os.windows" value="Windows_NT"/>
+	
+
+	<!-- 以下开始分辨运行环境及环境想着的参数值 -->
+    <property environment="env"/>
+    <property name="os" value="${env.OS}"/>
+    <if>
+        <equals arg1="${os}" arg2="${os.mac}"/>
+        <then>
+    		<property name="compress.folder" value="${compress.folder.mac}"/>
+        </then>
+        <elseif>
+            <equals arg1="${os}" arg2="${os.windows}"/>
+            <then>
+                <property name="compress.folder" value="${compress.folder.windows}"/>
+            </then>
+        </elseif>
+    </if>
 </project>

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Backup" default="Help" basedir=".">
+<project name="Backup" default="backup" basedir=".">
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
     <!-- 设定要复制的目标-->
     <import file="doBackup_constants.xml"/>
-    <property environment="env"/>
-    <property name="os" value="${env.OS}"/>
 
     <target name="compress">
-        <echo message="${os}"></echo>
-    	<echo message="compress.folder.mac:${compress.folder.mac}"></echo>
-    	<zip destfile="${compress.destfile.mac}" basedir="${compress.folder.mac}">
-    	</zip>
+        <echo message="compress.folder:${compress.folder}"></echo>
+
+        <zip destfile="${compress.destfile.mac}" basedir="${compress.folder.mac}"/>
+    </target>
+
+    <target name="backup">
+        <antcall target="compress"/>
     </target>
 
     <target name="Help">
