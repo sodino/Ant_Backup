@@ -46,7 +46,41 @@
             overwrite="true"/>
     </target>
 
+    <target name="clone.local">
+        <echo message="clone local for security reasons."/>
+        <echo message="${compress.folder} --> ${safety.folder}"/>
+        <!-- 删除原来的safety.folder -->
+        <condition property="safety.folder.exist" value="true" else="false">
+            <available property="exist" type="dir" file="${safety.folder}"/>
+        </condition>
+        <if>
+            <equals arg1="${safety.folder.exist}" arg2="true"/>
+            <then>
+                <delete dir="${safety.folder}" includeemptydirs="true"/> 
+            </then>
+            <else>
+                <echo message="${safety.folder} is not exist."/>
+            </else>
+        </if>
+        <!-- 将compress.folder复制成safety.folder -->
+        <condition property="compress.folder.exist" value="true" else="false">
+            <available property="exist" type="dir" file="${compress.folder}"/>
+        </condition>
+        <if>
+            <equals arg1="${compress.folder.exist}" arg2="true"/>
+            <then>
+                <move todir="${safety.folder}">
+                    <fileset dir="${compress.folder}"/>
+                </move>
+            </then>
+            <else>
+                <echo message="${compress.folder} is not exist."/>
+            </else>
+        </if>
+    </target>
+
     <target name="release">
+        <antcall target="clone.local"/>
         <antcall target="pull.from.sdcard"/>
         <antcall target="decompress"/>
     </target>

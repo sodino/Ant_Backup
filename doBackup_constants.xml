@@ -3,7 +3,7 @@
 <project name="Constants" basedir=".">
 
 
-	<property name="compress.folder.mac" value="/Users/sodino/Lab/Opportunity1"/>
+	<property name="compress.folder.mac" value="/Users/sodino/Lab/Opportunity"/>
 	<property name="compress.folder.windows" value="/Users/sodino/Lab/Opportunity"/>
 	<property name="compress.destfile.mac" location="/Users/sodino/Lab/backup.oppo.zip"/>
 	<property name="compress.destfile.windows" location="/Users/sodino/Lab/backup.oppo.zip"/>
@@ -24,12 +24,14 @@
         <then>
     		<property name="compress.folder" value="${compress.folder.mac}"/>
             <property name="compress.destfile" value="${compress.destfile.mac}"/>
+            <property name="safety.folder" value="${compress.folder}.safety"/>
         </then>
         <elseif>
             <equals arg1="${os}" arg2="${os.windows}"/>
             <then>
                 <property name="compress.folder" value="${compress.folder.windows}"/>
                 <property name="compress.destfile" value="${compress.destfile.windows}"/>
+                <property name="safety.folder" value="${compress.folder}.safety"/>
             </then>
         </elseif>
     </if>
