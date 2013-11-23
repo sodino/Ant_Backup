@@ -4,15 +4,51 @@
     <taskdef resource="net/sf/antcontrib/antlib.xml"/>
     <!-- 设定要复制的目标-->
     <import file="doBackup_constants.xml"/>
+    <import file="doBackup_tools.xml"/>
 
     <target name="compress">
-        <echo message="compress.folder:${compress.folder}"></echo>
+        <echo message="compress.folder:${compress.folder}"/>
 
-        <zip destfile="${compress.destfile.mac}" basedir="${compress.folder.mac}"/>
+        <zip destfile="${compress.destfile}"
+            basedir="${compress.folder}"/>
+    </target>
+
+    <target name="push.to.sdcard">
+        <echo message="push zip to sdcard"/>
+        <echo message="${compress.destfile} --> ${sdcard.zip.file}"/>
+
+        <exec executable="${adb}" failonerror="true">
+            <arg value="push"/>
+            <arg value="${compress.destfile}"/>
+            <arg value="${sdcard.zip.file}"/>
+        </exec>
     </target>
 
     <target name="backup">
         <antcall target="compress"/>
+        <antcall target="push.to.sdcard"/>
+    </target>
+
+    <target name="pull.from.sdcard">
+        <echo message="pull zip from sdcard"/>
+        <echo message="${sdcard.zip.file} --> ${compress.destfile}"/>
+        <exec executable="${adb}" failonerror="true">
+            <arg value="pull"/>
+            <arg value="${sdcard.zip.file}"/>
+            <arg value="${compress.destfile}"/>
+        </exec>
+    </target>
+
+    <target name="decompress">
+        <echo message="decompress"/>
+        <unzip src="${compress.destfile}"
+            dest="${compress.folder}"
+            overwrite="true"/>
+    </target>
+
+    <target name="release">
+        <antcall target="pull.from.sdcard"/>
+        <antcall target="decompress"/>
     </target>
 
     <target name="Help">
