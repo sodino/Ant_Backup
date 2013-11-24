@@ -6,6 +6,32 @@
     <import file="doBackup_constants.xml"/>
     <import file="doBackup_tools.xml"/>
 
+	
+	<!-- 这里填写系统环境变量中os的值 -->
+	<property name="os.mac" value="Mac"/>
+	<property name="os.windows" value="Windows_NT"/>
+	<!-- 以下开始分辨运行环境及环境决定的参数值 -->
+    <property environment="env"/>
+    <property name="os" value="${env.OS}"/>
+    <if>
+        <equals arg1="${os}" arg2="${os.mac}"/>
+        <then>
+    		<property name="compress.folder" value="${compress.folder.mac}"/>
+            <property name="compress.destfile" value="${compress.destfile.mac}"/>
+            <property name="safety.folder" value="${compress.folder}.safety"/>
+			<property name="adb" value="${adb.mac}"/>
+        </then>
+        <elseif>
+            <equals arg1="${os}" arg2="${os.windows}"/>
+            <then>
+                <property name="compress.folder" value="${compress.folder.windows}"/>
+                <property name="compress.destfile" value="${compress.destfile.windows}"/>
+                <property name="safety.folder" value="${compress.folder}.safety"/>
+				<property name="adb" value="${adb.windows}"/>
+            </then>
+        </elseif>
+    </if>
+	
     <target name="compress">
         <echo message="compress.folder:${compress.folder}"/>
 
@@ -56,7 +82,8 @@
         <if>
             <equals arg1="${safety.folder.exist}" arg2="true"/>
             <then>
-                <delete dir="${safety.folder}" includeemptydirs="true"/> 
+                <delete dir="${safety.folder}" includeemptydirs="true"/>
+				<echo message="${safety.folder} has been deleted."/>
             </then>
             <else>
                 <echo message="${safety.folder} is not exist."/>
@@ -72,6 +99,7 @@
                 <move todir="${safety.folder}">
                     <fileset dir="${compress.folder}"/>
                 </move>
+				<echo message="${safety.folder} has been saved."/>
             </then>
             <else>
                 <echo message="${compress.folder} is not exist."/>

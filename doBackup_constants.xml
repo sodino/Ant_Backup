@@ -4,35 +4,12 @@
 
 
 	<property name="compress.folder.mac" value="/Users/sodino/Lab/Opportunity"/>
-	<property name="compress.folder.windows" value="/Users/sodino/Lab/Opportunity"/>
+	<property name="compress.folder.windows" value="C:\GitHub\Opportunity"/>
 	<property name="compress.destfile.mac" location="/Users/sodino/Lab/backup.oppo.zip"/>
-	<property name="compress.destfile.windows" location="/Users/sodino/Lab/backup.oppo.zip"/>
+	<property name="compress.destfile.windows" location="C:\GitHub\backup.oppo.zip"/>
 
     <property name="backup.name" value="backup.zip"/>
     <property name="sdcard.zip.file" value="/sdcard/backup/${backup.name}"/>
 
-	<!-- 这里填写系统环境变量中os的值 -->
-	<property name="os.mac" value="Mac"/>
-	<property name="os.windows" value="Windows_NT"/>
-	
 
-	<!-- 以下开始分辨运行环境及环境想着的参数值 -->
-    <property environment="env"/>
-    <property name="os" value="${env.OS}"/>
-    <if>
-        <equals arg1="${os}" arg2="${os.mac}"/>
-        <then>
-    		<property name="compress.folder" value="${compress.folder.mac}"/>
-            <property name="compress.destfile" value="${compress.destfile.mac}"/>
-            <property name="safety.folder" value="${compress.folder}.safety"/>
-        </then>
-        <elseif>
-            <equals arg1="${os}" arg2="${os.windows}"/>
-            <then>
-                <property name="compress.folder" value="${compress.folder.windows}"/>
-                <property name="compress.destfile" value="${compress.destfile.windows}"/>
-                <property name="safety.folder" value="${compress.folder}.safety"/>
-            </then>
-        </elseif>
-    </if>
 </project>
